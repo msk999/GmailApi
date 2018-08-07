@@ -3,7 +3,7 @@ require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'fileutils'
 
-class Api::V1::MessagesController < ApplicationController
+class Api::V1::MessagesController < ApiController
   before_action :set_google_api
   def show
     id = params[:id]
