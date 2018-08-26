@@ -8,8 +8,9 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
+  # config.secret_key = '7f7bef8741415a1d67d0dbce79ff5f143ada400e5c78e84d8170108a79f5e22d0b46d76e2cb4feaabd2355fcb04c35b8662870fdd68c789fa209871a3666b80c'
   config.secret_key = '11309929dc5a98a4723844562326f9b40c18ee06b600196efb10eb6fd2d0c07eac8b585840fe7f9b8623230c890bdbc7d2b64eabcb7209a42eb5cc94919f490e'
-
+  # config.secret_key =  Rails.application.credentials.secret_key_base
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
@@ -248,7 +249,7 @@ Devise.setup do |config|
   # should add them to the navigational formats lists.
   #
   # The "*/*" below is required to match Internet Explorer requests.
-  # config.navigational_formats = ['*/*', :html]
+  config.navigational_formats = ['*/*', :json]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
@@ -264,7 +265,7 @@ Devise.setup do |config|
   #
   config.warden do |manager|
   #   manager.intercept_401 = false
-  manager.strategies.add :jwt, Devise::Strategies::JWT
+    manager.strategies.add :jwt, Devise::Strategies::JWT
     manager.default_strategies(scope: :user).unshift :some_external_strategy
   end
 

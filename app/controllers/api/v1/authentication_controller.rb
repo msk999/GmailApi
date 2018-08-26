@@ -1,9 +1,8 @@
 class Api::V1::AuthenticationController < ApiController
-    skip_before_action :authenticate_token!
+    skip_before_action :authenticate_user!
   
     def create
       user = User.find_by(email: params[:user][:email])
-      byebug
       if user.valid_password? params[:user][:password]
         render json: { token: JsonWebToken.encode(sub: user.id) }
       else
