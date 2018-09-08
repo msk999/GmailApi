@@ -29,8 +29,9 @@ gem 'jbuilder'
 gem 'google-api-client', '~> 0.9'
 gem 'google-id-token', '~> 1.3'
 gem 'rmail'
-gem 'jwt'
-gem 'devise', '~> 4.4', '>= 4.4.3'
+
+gem 'active_model_serializers'
+gem 'knock'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
