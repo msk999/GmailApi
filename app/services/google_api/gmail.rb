@@ -77,7 +77,7 @@ module GoogleApi
 
     desc 'list', 'list messages with the gmail API'
     method_option :limit, type: :numeric, default: 100
-    def list
+    def list(label_ids)
       gmail = Gmail::GmailService.new
       gmail.authorization = user_credentials_for(Gmail::AUTH_SCOPE)
       my_options = {}
@@ -86,8 +86,7 @@ module GoogleApi
       messages = []
       next_page = nil
       begin
-        
-        result = gmail.list_user_messages('me', max_results: [my_options[:limit], 50].min, page_token: next_page)
+        result = gmail.list_user_messages('me', label_ids: label_ids, max_results: [my_options[:limit], 50].min, page_token: next_page)
         
         messages += result.messages
         break if messages.size >= my_options[:limit]
@@ -157,6 +156,25 @@ module GoogleApi
 
       puts "signature of #{impersonated_email} is now: #{result.signature}"
     end
+
+    desc 'label_list', 'list messages with the gmail API'
+    method_option :limit, type: :numeric, default: 100
+    def label_list
+      gmail = Gmail::GmailService.new
+      gmail.authorization = user_credentials_for(Gmail::AUTH_SCOPE)
+      my_options = {}
+      
+      my_options[:limit] = 25
+      labels = []
+      begin
+        result = gmail.list_user_labels('me')
+        
+        labels += result.labels
+      end 
+
+      labels
+    end
+
 
   end
 end

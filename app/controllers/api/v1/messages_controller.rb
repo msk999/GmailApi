@@ -11,14 +11,16 @@ class Api::V1::MessagesController < ApiController
     render html: @gmail.get(id, true).html
   end
 
-  def index
-    render json: get_list.to_json
+  def index 
+    label_ids = params[:label_ids] if params[:label_ids]
+    render json: get_list(label_ids).to_json
   end
 
   private
 
-  def get_list
-    message_list = @gmail.list
+  def get_list(label_ids)
+    label_ids = ['INBOX','UNREAD'] if label_ids.nil?
+    message_list = @gmail.list(label_ids)
     messages = []
     message_list.each do|msg| 
       message = @gmail.get(msg.id)
